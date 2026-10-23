@@ -136,8 +136,3 @@ The main database files are:
 CollabFlow is currently under active development. Features such as authentication, project collaboration, task management, and Kanban boards will be implemented in upcoming development phases.
 
 
-**Getting Started**
-
-1.Clone the Repository
-2.Run npm install
-3.Run npm run dev
