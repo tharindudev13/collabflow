@@ -25,7 +25,8 @@ Deployement - Vercel
 
 **Prerequisites**
 
-Make sure you have installed node.js
+Make sure you have installed node.js,PostgreSQL and prisma
+
 
 **Getting Started**
 
