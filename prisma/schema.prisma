@@ -18,4 +18,6 @@ model project {
   description String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("project")
 }
