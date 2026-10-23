@@ -21,3 +21,14 @@ Authentication - Auth.js
 Drag & Drop - dnd-kit
 REal-time - Supabase Realtime
 Deployement - Vercel
+
+
+**Prerequisites**
+
+Make sure you have installed node.js
+
+**Getting Started**
+
+1.Clone the Repository
+2.Run npm install
+3.Run npm run dev
