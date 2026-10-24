@@ -1,3 +1,4 @@
+import { Prisma } from "@/generated/prisma/client"
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
 import { NextResponse } from "next/server"
@@ -54,11 +55,17 @@ export async function POST(request: Request) {
             {status: 201}
         )
     }catch(err){
+        if(
+            err instanceof Prisma.PrismaClientKnownRequestError &&
+            err.code === "P2002" 
+        ){
+            return NextResponse.json(
+            {message: "Email already registerd",},
+            {status:409}
+        )
+        }
         return NextResponse.json(
-            {
-                message: "Internal Server Error.",
-                error: err
-            },
+            {message: "Internal Server Error."},
             {status:500}
         )
     }
