@@ -6,9 +6,21 @@ import {z} from "zod"
 
 
 export async function POST(request: Request) {
-    let body : unknown
     try{
-        body = await request.json()
+        let body: unknown;
+
+        try {
+        body = await request.json();
+        } catch (err) {
+        if (err instanceof SyntaxError) {
+            return NextResponse.json(
+            { message: "Invalid JSON format." },
+            { status: 400 }
+            );
+        }
+
+        throw err;
+        }
         const registerSchema = z.object({
             name: z.string().trim().min(1,"Name is required."),
             email: z.string().trim().toLowerCase().pipe(z.email()),
