@@ -9,7 +9,7 @@ export default function TestLoginPage() {
   async function handleLogin() {
     try {
       const result = await signIn("credentials", {
-        email: "tes@example.com",
+        email: "test@example.com",
         password: "TestPassword123",
         redirect: false,
       });
