@@ -37,7 +37,6 @@ export default function Register(){
                 })
             })
             const result = await response.json()
-            console.log(result);
             
             if(!response.ok){
                 if(response.status === 409){
@@ -127,7 +126,7 @@ export default function Register(){
                         >
                             {loading ? "Creating your account":"Sign Up"}
                         </Button>
-                        <p className="text-muted-foreground">{"Alreadu have an account?"} 
+                        <p className="text-muted-foreground">{"Already have an account?"} 
                             <Link href="/login" className="ml-1 hover:underline text-primary font-medium">
                                     Sign In
                             </Link>
