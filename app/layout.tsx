@@ -25,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-screen bg-background text-foreground antialiased">
     
-        <main className="max-w-7xl mx-auto px-4 sm:px-22 lg:px-8 py-6">
+        <main className="w-full min-h-screen">
           {children}
         </main>
 
