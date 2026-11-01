@@ -7,8 +7,8 @@ import { signOut } from 'next-auth/react'
 const SignOutButton = () => {
     
     return (
-        <Button onClick={async() => await signOut()}>
-                Sign Out
+        <Button variant="destructive" className="font-bold cursor-pointer" onClick={async() => await signOut({ callbackUrl: "/login" })}>
+                LogOut
         </Button>
     )
 }

@@ -1,31 +1,37 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import { Card } from './card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './dropdown-menu'
 import { ArrowRight, ArrowUpRight, Ellipsis, Pencil, Trash } from 'lucide-react'
 import { Separator } from '@base-ui/react'
+import EditProjectCard from './EditProjectCard'
+import DeleteProjectCard from './DeleteProjectCard'
 
-const ProjectCard = ({topic,desc,time,emoji}:{topic: string,desc:string,time:string,emoji:string}) => {
+const ProjectCard = ({topic,desc,time,emoji,id}:{topic: string,desc:string,time:string,emoji:string,id:string}) => {
+    const [isEditProjectOpen, setIsEditProjectOpen] = useState(false)
+    const [isDeleteProjectOpen, setIsDeleteProjectOpen] = useState(false)
+    
   return (
     
                     <div>
-                        <Card className="w-85 p-7">
+                        <Card className="w-78 p-7">
                             <div className="flex justify-between">
                                 <div className="bg-accent text-3xl rounded-2xl p-2">
                                     {emoji}
                                 </div>
                                 <DropdownMenu >
-                                    <DropdownMenuTrigger>
+                                    <DropdownMenuTrigger >
                                         <Ellipsis />
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="p-2 w-fit">
                                         <DropdownMenuItem>
                                             <ArrowUpRight /> Open Project
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => setIsEditProjectOpen(true)}>
                                             <Pencil /> Edit Project
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem className="" variant="destructive">
+                                        <DropdownMenuItem className="" variant="destructive" onClick={() => setIsDeleteProjectOpen(true)}>
                                             <Trash /> Delete Project
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
@@ -35,10 +41,26 @@ const ProjectCard = ({topic,desc,time,emoji}:{topic: string,desc:string,time:str
                             <p className="text-muted-foreground">{desc}</p>
                             <Separator />
                             <div className="flex justify-between">
-                                <p className="text-muted-foreground">{time}</p>
-                                <p className="text-primary flex items-center font-bold gap-2">Open Project<ArrowRight size={12}/> </p>
+                                <p className="text-muted-foreground text-xs">{time}</p>
+                                <p className="text-primary flex items-center font-bold gap-2 text-xs">Open Project<ArrowRight size={12}/> </p>
                             </div>
                         </Card>
+                        {isEditProjectOpen && (
+                            <EditProjectCard 
+                                onClose={() => setIsEditProjectOpen(false)}
+                                projectId={id}
+                                pname={topic}
+                                description={desc}
+                                emoji={emoji} 
+                                />
+                        )}
+                        {isDeleteProjectOpen && (
+                            <DeleteProjectCard
+                                onClose={() => setIsDeleteProjectOpen(false)}
+                                projectId={id}
+                                pname={topic}
+                                />
+                        )}
                     </div>
   )
 }

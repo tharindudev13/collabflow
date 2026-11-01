@@ -18,6 +18,10 @@ model Project {
   description String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  emoji String @default("📁")
+  status String @default("In Progress")
+  ownerId String
+  owner User @relation(fields: [ownerId], references: [id])
 
   @@map("project")
 }
@@ -29,4 +33,5 @@ model User {
   password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  projects Project[]
 }
