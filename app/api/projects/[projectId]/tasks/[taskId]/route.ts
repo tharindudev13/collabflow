@@ -31,9 +31,13 @@ export async function PATCH(request : Request, {params} : {params: Promise<{
             throw err;
         }
         const taskSchema = z.object({
-            title: z.string().trim().min(1,"Project title is required."),
-            description: z.string().trim()
-        })
+            title: z.string().trim().min(1).optional(),
+            description: z.string().trim().nullable().optional(),
+            status: z.enum(["TODO","IN_PROGRESS","DONE"]).optional()
+        }).refine(
+            data => Object.keys(data).length > 0,
+            "Provide at least one field to update"
+        )
 
         const result = taskSchema.safeParse(body)
 
@@ -54,7 +58,8 @@ export async function PATCH(request : Request, {params} : {params: Promise<{
 
         const task = await prisma.task.findUnique({
             where: {
-                id: taskId
+                id: taskId,
+                projectId: projectId
             }
         })
 
@@ -76,19 +81,16 @@ export async function PATCH(request : Request, {params} : {params: Promise<{
             where: {
                 id : taskId
             },
-            data: {
-                title: title,
-                description: description
-            }
+            data: result.data
         })
 
         return NextResponse.json(
             {
                 message: "Task updated successfully",
                 task: {
-                    title: task.title,
-                    description: task.description,
-                    status: task.status
+                    title: newtask.title,
+                    description: newtask.description,
+                    status: newtask.status
                 }
 
             },
@@ -111,12 +113,12 @@ export async function DELETE(request: Request ,{params}: {params: Promise<{
 
     try{
         const session = await auth()
-        // if(!session?.user.id){
-        //     return NextResponse.json(
-        //         {message: "Unathorized"},
-        //         {status: 401}
-        //     )
-        // }
+        if(!session?.user.id){
+            return NextResponse.json(
+                {message: "Unathorized"},
+                {status: 401}
+            )
+        }
         const project = await prisma.project.findUnique({
             where: {
                 id: projectId
@@ -125,7 +127,8 @@ export async function DELETE(request: Request ,{params}: {params: Promise<{
 
         const task = await prisma.task.findUnique({
             where: {
-                id: taskId
+                id: taskId,
+                projectId: projectId
             }
         })
         if(!task){
@@ -135,12 +138,12 @@ export async function DELETE(request: Request ,{params}: {params: Promise<{
             )
         }
 
-        // if(project?.ownerId !== session?.user.id){
-        //     return NextResponse.json(
-        //         {message: "Access Denied"},
-        //         {status: 403}
-        //     )
-        // }
+        if(project?.ownerId !== session?.user.id){
+            return NextResponse.json(
+                {message: "Access Denied"},
+                {status: 403}
+            )
+        }
 
         await prisma.task.delete({
             where: {

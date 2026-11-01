@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import z from "zod";
 
-export async function GET(request: Request ,{params}: {params: {projectId: string}}){
+export async function GET(request: Request ,{params}: {params: Promise<{projectId: string}>}){
     const {projectId} = await params;
 
     try{
@@ -50,7 +50,7 @@ export async function GET(request: Request ,{params}: {params: {projectId: strin
     }
 }
 
-export async function POST(request : Request, {params} : {params: {projectId: string,taskId: string}}){
+export async function POST(request : Request, {params} : {params: Promise<{projectId: string}>}){
     const {projectId} = await params
     try{
         const session = await auth()
@@ -75,7 +75,7 @@ export async function POST(request : Request, {params} : {params: {projectId: st
         }
         const taskSchema = z.object({
             title: z.string().trim().min(1,"Project title is required."),
-            description: z.string().trim()
+            description: z.string().trim().optional()
         })
 
         const result = taskSchema.safeParse(body)
