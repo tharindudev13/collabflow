@@ -60,7 +60,7 @@ const EditProjectCard = ({ onClose,projectId,pname,description,emoji}: { onClose
       {isFeedbackOpen ? 
       <FeedBack 
             type={type} 
-            name={pname} 
+            name={name} 
             desc={""}
             error={error} 
             onClose={() => {
