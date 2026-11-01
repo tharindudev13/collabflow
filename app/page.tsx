@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Logo from "../public/Primary.png";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowUpRight, Check, Circle, Diamond, Eclipse, Ellipse, EllipsisIcon, Group, Sparkle, Users } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Circle, Diamond, EllipsisIcon, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { auth } from "@/auth";
 import SignOutButton from "@/components/ui/SignOutButton";
-import FeedBack from "@/components/FeedBack";
 
 export default async function Home() {
   const session = await auth()

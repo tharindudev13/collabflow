@@ -3,6 +3,14 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import {z} from "zod"
 
+const emojiSchema = z.string().refine(
+  value =>
+    [...new Intl.Segmenter("en", {
+      granularity: "grapheme"
+    }).segment(value)].length === 1,
+  "Choose exactly one emoji"
+)
+
 export async function POST(request: Request) {
   try {
     const session = await auth()
@@ -30,7 +38,7 @@ export async function POST(request: Request) {
     const postSchema = z.object({
         name: z.string().trim().min(1,"Project name required"),
         description: z.string(),
-        emoji: z.string().trim().max(1)
+        emoji: emojiSchema
     })
 
     const result = postSchema.safeParse(body)
@@ -130,7 +138,7 @@ export async function PATCH(request: Request) {
         projectId: z.string().trim().min(1,"Project Id required"),
         name: z.string().trim().min(1,"Project name required"),
         description: z.string(),
-        emoji: z.string().trim().max(1)
+        emoji: emojiSchema
     })
 
     const result = postSchema.safeParse(body)
@@ -153,10 +161,19 @@ export async function PATCH(request: Request) {
       }
     })
 
+    
+
     if(!project){
       return NextResponse.json(
         {message: "Project Not Found"},
         {status: 404}
+      )
+    }
+
+    if (project.ownerId !== session.user.id) {
+      return NextResponse.json(
+        { message: "Forbidden" },
+        { status: 403 }
       )
     }
 

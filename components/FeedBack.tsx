@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card"
-import { Check, Circle, CircleX, Trash, TriangleAlert } from "lucide-react"
+import { Check, CircleX, Trash, TriangleAlert } from "lucide-react"
 import { Button } from "./ui/button"
 
 type FeedBackProps = {

@@ -8,6 +8,7 @@ import { Button } from './button'
 import EmojiSelector from './EmojiSelector'
 import { useState } from 'react'
 import FeedBack from '../FeedBack'
+import { useRouter } from 'next/navigation'
 
 const EditProjectCard = ({ onClose,projectId,pname,description,emoji}: { onClose: () => void ,projectId: string,pname:string,description: string,emoji: string}) => {
     
@@ -19,6 +20,7 @@ const EditProjectCard = ({ onClose,projectId,pname,description,emoji}: { onClose
     const [isFeedbackOpen, setIsFeedBackOpen] = useState(false);
     const [type, setType] = useState(0);
     const [error,SetError] = useState("")
+    const router = useRouter() 
 
     const handleSUbmit = async () => {
       setLoading(true)
@@ -38,6 +40,7 @@ const EditProjectCard = ({ onClose,projectId,pname,description,emoji}: { onClose
         const result = await response.json()
         if(response.status === 200){
           setType(2)
+          router.refresh()
         }else{
           SetError(result.message)
           setType(4)

@@ -80,7 +80,7 @@ const MyProjects = ({cards} : {cards : Project []}) => {
         </div>
         <div className="flex justify-between text-muted-foreground text-sm mt-6">
           <p className="font-bold uppercase">Your Projects</p>
-          <p>3 Projects</p>
+          <p>{filteredCards.length} Projects</p>
         </div>
         <div className="grid grid-cols-3 mt-8 space-y-8">
           {filteredCards.map((card, key) => (

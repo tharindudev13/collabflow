@@ -11,6 +11,7 @@ import { Button } from "./button";
 import { Trash } from "lucide-react";
 import { useState } from "react";
 import FeedBack from "../FeedBack";
+import { useRouter } from "next/navigation";
 
 const DeleteProjectCard = ({
   onClose,
@@ -26,6 +27,8 @@ const DeleteProjectCard = ({
   const [type, setType] = useState(0);
   const [error,setError] = useState("")
 
+  const router = useRouter()
+
   const handleSUbmit = async () => {
     setLoading(true);
     try {
@@ -40,11 +43,12 @@ const DeleteProjectCard = ({
 
       if (response.status === 200) {
         setType(1);
+        router.refresh()
       } else {
         setError(result.message)
         setType(4)
       }
-    } catch (error) {
+    } catch {
       setType(3);
     } finally {
       setLoading(false);
