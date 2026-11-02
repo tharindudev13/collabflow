@@ -145,7 +145,7 @@ const EditTaskCard = ({ onClose,task}: { onClose: () => void ,task: Task}) => {
             onValueChange={(v) => setNewPriority(String(v))}
             >
             <SelectTrigger className="w-45 py-6 bg-white ">
-              <SelectValue placeholder="Select" />
+              <SelectValue placeholder={newpriority} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -169,7 +169,7 @@ const EditTaskCard = ({ onClose,task}: { onClose: () => void ,task: Task}) => {
             onValueChange={(v) => setNewStatus(String(v))}
             >
             <SelectTrigger className="w-45 py-6 bg-white ">
-              <SelectValue placeholder="Select" />
+              <SelectValue placeholder={newstatus} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -190,7 +190,7 @@ const EditTaskCard = ({ onClose,task}: { onClose: () => void ,task: Task}) => {
         </CardContent>
         <CardFooter className="justify-end gap-2 px-6 py-4">
           <Button variant="outline" className="p-5 cursor-pointer" onClick={onClose}>Cancel</Button>
-          <Button className="p-5 cursor-pointer" disabled = {loading} onClick={handleSUbmit}>{loading ? "Updating..." : "Update project"}</Button>
+          <Button className="p-5 cursor-pointer" disabled = {loading} onClick={handleSUbmit}>{loading ? "Updating..." : "Update Task"}</Button>
         </CardFooter>
       </Card>
 }

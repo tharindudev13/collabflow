@@ -7,6 +7,7 @@ import { Separator } from '@base-ui/react'
 import EditProjectCard from './EditProjectCard'
 import DeleteProjectCard from './DeleteProjectCard'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const ProjectCard = ({topic,desc,time,emoji,id}:{topic: string,desc:string,time:string,emoji:string,id:string}) => {
     const [isEditProjectOpen, setIsEditProjectOpen] = useState(false)
@@ -44,7 +45,7 @@ const ProjectCard = ({topic,desc,time,emoji,id}:{topic: string,desc:string,time:
                             <Separator />
                             <div className="flex justify-between">
                                 <p className="text-muted-foreground text-xs">{time}</p>
-                                <p className="text-primary flex items-center font-bold gap-2 text-xs">Open Project<ArrowRight size={12}/> </p>
+                               <Link href={`/projects/${id}`}><p className="text-primary flex items-center font-bold gap-2 text-xs">Open Project<ArrowRight size={12}/> </p></Link>
                             </div>
                         </Card>
                         {isEditProjectOpen && (

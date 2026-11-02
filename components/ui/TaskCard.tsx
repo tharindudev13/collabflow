@@ -24,7 +24,7 @@ const TaskCard = ({ task }: { task: Task }) => {
     let color;
     if(task.priority === "HIGH"){
         color = "#E3475C"
-    }else if(task.priority === "Medium"){
+    }else if(task.priority === "MEDIUM"){
         color = "#634FE5"
     }else {
         color = "#1FA673"

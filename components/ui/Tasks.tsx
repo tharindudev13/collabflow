@@ -5,6 +5,7 @@ import { ArrowLeft, Circle, Plus } from "lucide-react";
 import AddProjectCard from "./AddProjectCard";
 import TaskCard from "./TaskCard";
 import AddTaskCard from "./AddTaskCard";
+import Link from "next/link";
 
 type Task = {
         id: string
@@ -48,11 +49,11 @@ const Tasks = ({cards,project}: {cards: Task[],project: Project}) => {
   return (
     <>
       <div className="flex-9 px-10 py-5">
-        <p className="text-xs flex items-center text-primary font-bold gap-1"><ArrowLeft size={15}/> Back to projects</p>
+        <Link href='/dashboard'><p className="text-xs flex items-center text-primary font-bold gap-1"><ArrowLeft size={15}/> Back to projects</p></Link>
         <div className="flex justify-between">
           <div className="flex gap-5 mt-5">
             <div className="bg-primary/20 p-3 rounded-lg">
-                <p className="text-xl">🎨</p>
+                <p className="text-xl">{project.emoji}</p>
             </div>
             <div>
                 <p className="font-semibold text-xl">{project.name}</p>
@@ -89,8 +90,8 @@ const Tasks = ({cards,project}: {cards: Task[],project: Project}) => {
                     {todoTasks.length === 0 ?
                         (<p className="text-muted-foreground text-center text-sm">There is Nothing here..</p>) 
                         : 
-                        todoTasks.map((task,key) => (
-                            <TaskCard task={task} key={key}/> 
+                        todoTasks.map((task) => (
+                            <TaskCard task={task} key={task.id}/> 
                         ))
                         }
                 </div>
@@ -104,8 +105,8 @@ const Tasks = ({cards,project}: {cards: Task[],project: Project}) => {
                     {InpTasks.length === 0 ?
                         (<p className="text-muted-foreground text-center text-sm">Seems your team is free today..</p>) 
                         : 
-                        InpTasks.map((task,key) => (
-                            <TaskCard task={task} key={key}/> 
+                        InpTasks.map((task) => (
+                            <TaskCard task={task} key={task.id}/> 
                         ))
                         }
                 </div>
@@ -119,8 +120,8 @@ const Tasks = ({cards,project}: {cards: Task[],project: Project}) => {
                     {doneTasks.length === 0 ?
                         (<p className="text-muted-foreground text-center text-sm">You {"haven't"} make any progress yet..</p>) 
                         : 
-                        doneTasks.map((task,key) => (
-                            <TaskCard task={task} key={key}/> 
+                        doneTasks.map((task) => (
+                            <TaskCard task={task} key={task.id}/> 
                         ))
                         }
                 </div>

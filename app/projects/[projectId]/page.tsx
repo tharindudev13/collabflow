@@ -21,7 +21,8 @@ export default async function ProjectTasks({params}: {params: {projectId: string
 
     const project = await prisma.project.findUnique({
         where: {
-            id: projectId
+            id: projectId,
+            ownerId: session.user.id
         }
     })
 
