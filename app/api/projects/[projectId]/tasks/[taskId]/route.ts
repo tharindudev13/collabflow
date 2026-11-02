@@ -33,7 +33,9 @@ export async function PATCH(request : Request, {params} : {params: Promise<{
         const taskSchema = z.object({
             title: z.string().trim().min(1).optional(),
             description: z.string().trim().nullable().optional(),
-            status: z.enum(["TODO","IN_PROGRESS","DONE"]).optional()
+            status: z.enum(["TODO","IN_PROGRESS","DONE"]).optional(),
+            due: z.iso.datetime({offset: true}).optional().nullable(),
+            priority: z.enum(["HIGH","MEDIUM","NORMAL"]).optional()
         }).refine(
             data => Object.keys(data).length > 0,
             "Provide at least one field to update"
@@ -43,12 +45,14 @@ export async function PATCH(request : Request, {params} : {params: Promise<{
 
         if(!result.success){
             return NextResponse.json(
-                {message: "Validation failed"},
+                {
+                    message: "Validation failed",
+                    errors: z.flattenError(result.error).fieldErrors
+                },
                 {status: 400}
             )
         }
 
-        const {title,description} = result.data
 
         const project = await prisma.project.findUnique({
             where: {
@@ -65,7 +69,7 @@ export async function PATCH(request : Request, {params} : {params: Promise<{
 
         if(!task){
             return NextResponse.json(
-                {message: "Project Not Found"},
+                {message: "Task Not Found"},
                 {status: 404}
             )
         }
@@ -81,7 +85,15 @@ export async function PATCH(request : Request, {params} : {params: Promise<{
             where: {
                 id : taskId
             },
-            data: result.data
+            data:  {
+                        ...result.data,
+                        due:
+                        result.data.due === undefined
+                            ? undefined
+                            : result.data.due === null
+                            ? null
+                            : new Date(result.data.due),
+                    },
         })
 
         return NextResponse.json(

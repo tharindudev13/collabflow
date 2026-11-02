@@ -22,6 +22,7 @@ type Project = {
 const MyProjects = ({cards} : {cards : Project []}) => {
     const [status,setStatus] = useState("all")
     const [isAddProjectOpen, setIsAddProjectOpen] = useState(false)
+  
     
 
 

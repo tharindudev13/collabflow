@@ -6,10 +6,12 @@ import { ArrowRight, ArrowUpRight, Ellipsis, Pencil, Trash } from 'lucide-react'
 import { Separator } from '@base-ui/react'
 import EditProjectCard from './EditProjectCard'
 import DeleteProjectCard from './DeleteProjectCard'
+import { useRouter } from 'next/navigation'
 
 const ProjectCard = ({topic,desc,time,emoji,id}:{topic: string,desc:string,time:string,emoji:string,id:string}) => {
     const [isEditProjectOpen, setIsEditProjectOpen] = useState(false)
     const [isDeleteProjectOpen, setIsDeleteProjectOpen] = useState(false)
+    const router = useRouter()
     
   return (
     
@@ -24,7 +26,7 @@ const ProjectCard = ({topic,desc,time,emoji,id}:{topic: string,desc:string,time:
                                         <Ellipsis />
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="p-2 w-fit">
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem onClick={() => router.push(`/projects/${id}`)}>
                                             <ArrowUpRight /> Open Project
                                         </DropdownMenuItem>
                                         <DropdownMenuItem onClick={() => setIsEditProjectOpen(true)}>

@@ -44,13 +44,21 @@ model Task {
   status TaskStatus @default(TODO)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
+  due DateTime?
+  priority String
   projectId String
   project Project @relation(fields: [projectId],references:[id])
+
 }
 
 enum TaskStatus {
   TODO
   IN_PROGRESS
   DONE
+}
+
+enum TaskPriority{
+  HIGH
+  MEDIUM
+  NORMAL
 }

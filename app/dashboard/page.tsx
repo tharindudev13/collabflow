@@ -1,7 +1,6 @@
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { connection } from "next/server"
-import { Suspense} from "react"
 import Image from "next/image"
 import Logo from "../../public/Primary.png"
 import {Bell, ChartPie, Grid3X3, Search, Settings, } from "lucide-react"
@@ -13,7 +12,7 @@ import Link from "next/link"
 import MyProjects from "@/components/ui/MyProjects"
 
 
-async function DashboardContent() {
+export default async function DashboardContent() {
     await connection()
 
     const session = await auth()
@@ -22,6 +21,13 @@ async function DashboardContent() {
         redirect("/login")
     }
     const userName = session?.user?.name ?? "Guest"
+    const userInitials = userName
+        .trim()
+        .split(/\s+/)
+        .map((name) => name[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase()
     
 
     
@@ -33,6 +39,7 @@ async function DashboardContent() {
             updatedAt: "desc"
         }
     })
+
 
    
 
@@ -85,7 +92,7 @@ async function DashboardContent() {
 
                     <div className="flex gap-4 items-center">
                         <div className="rounded-full w-fit p-3 bg-accent text-primary font-bold">
-                        JD
+                        {userInitials}
                     </div >
                     <div className="grid ">
                         <p className="font-bold">{userName}</p>
@@ -120,13 +127,5 @@ async function DashboardContent() {
         </div>
         
     )
-}
 
-// Page component
-export default function Dashboard() {
-    return (
-        <Suspense fallback={<div>Loading dashboard...</div>}>
-            <DashboardContent />
-        </Suspense>
-    )
 }

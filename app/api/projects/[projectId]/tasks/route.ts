@@ -74,20 +74,26 @@ export async function POST(request : Request, {params} : {params: Promise<{proje
             throw err;
         }
         const taskSchema = z.object({
-            title: z.string().trim().min(1,"Project title is required."),
-            description: z.string().trim().optional()
+            title: z.string().trim().min(1,"Task title is required."),
+            description: z.string().trim().optional(),
+            due: z.iso.datetime({offset: true}).optional().nullable(),
+            priority: z.enum(["HIGH","MEDIUM","NORMAL"])
         })
 
         const result = taskSchema.safeParse(body)
 
         if(!result.success){
             return NextResponse.json(
-                {message: "Validation failed"},
+                {
+                    message: "Validation failed",
+                    errors: z.flattenError(result.error).fieldErrors
+
+                },
                 {status: 400}
             )
         }
 
-        const {title,description} = result.data
+        const {title,description,due,priority} = result.data
 
         const project = await prisma.project.findUnique({
             where: {
@@ -113,7 +119,10 @@ export async function POST(request : Request, {params} : {params: Promise<{proje
             data: {
                 projectId: projectId,
                 title: title,
-                description: description
+                description: description,
+                due: due ? new Date(due) : null,
+                priority: priority,
+
             }
         })
 
