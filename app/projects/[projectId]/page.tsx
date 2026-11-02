@@ -43,9 +43,9 @@ export default async function ProjectTasks({params}: {params: {projectId: string
         ...task,
         description: task.description ?? "",
         due: task.due
-            ? `Due ${months[task.due.getMonth()]} ${task.due.getDate()}`
-            : "No due date"
-    }))
+            ? task.due.toISOString().slice(0, 10)
+            : ""
+        }))
 
     const userInitials = userName
         .trim()

@@ -68,7 +68,14 @@ const TaskCard = ({ task }: { task: Task }) => {
             </div>
         </CardContent>
         <CardFooter className='text-xs text-muted-foreground'>
-            {task.due}
+            {
+                task.due
+                    ? `Due ${new Date(`${task.due}T12:00:00`).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric"
+                    })}`
+                    : "No due date"
+            }
         </CardFooter>
     </Card>
     {isEditTaskOpen && (

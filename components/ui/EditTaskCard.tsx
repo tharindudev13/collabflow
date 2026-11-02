@@ -59,10 +59,12 @@ const EditTaskCard = ({ onClose,task}: { onClose: () => void ,task: Task}) => {
                 "Content-Type" : "application/json"
             },
             body: JSON.stringify({
-                title: title,
-                description : desc,
+                title,
+                description: desc,
                 status: newstatus,
-                due : new Date(due),
+                due: due
+                    ? new Date(`${due}T12:00:00`).toISOString()
+                    : null,
                 priority: newpriority
             })
         })
