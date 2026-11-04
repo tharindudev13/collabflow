@@ -5,11 +5,10 @@ import { ArrowRight, ArrowUpRight, Check, Circle, Diamond, EllipsisIcon, Users }
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import { auth } from "@/auth";
-import SignOutButton from "@/components/ui/SignOutButton";
+import { Suspense } from "react";
+import HomeAuthActions from "@/components/HomeAuthActions";
 
 export default async function Home() {
-  const session = await auth()
 
   return (
     <div className="flex min-h-screen flex-col pt-20">
@@ -31,18 +30,9 @@ export default async function Home() {
           <p className="text-muted-foreground">How it works</p>
           <p className="text-muted-foreground">About</p>
 
-            {!session?.user ?
-            <>
-              <Button variant="ghost" className="p-5 font-bold">
-                  <Link href="/login">Login</Link>
-              </Button>
-              <Button className="p-5 flex">
-                <Link href="/login">Get Started</Link> <ArrowRight />
-              </Button>
-            </>
-              :
-              <SignOutButton />
-            }
+            <Suspense fallback={<span>Loading...</span>}>
+              <HomeAuthActions />
+            </Suspense>
             
           
         </div>
