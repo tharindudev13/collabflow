@@ -108,7 +108,7 @@ export async function PATCH(request : Request, {params} : {params: Promise<{
             },
             {status: 200}
         )
-    }catch(err){
+    }catch{
         return NextResponse.json(
             {message: "Internal Server Error"},
             {status: 500}
@@ -167,7 +167,7 @@ export async function DELETE(request: Request ,{params}: {params: Promise<{
             {message: "Task deleted successfully."},
             {status: 200}
         )
-    }catch(err){
+    }catch{
         return NextResponse.json(
             {message: "Internal server error"},
             {status: 500}

@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Button } from "./button";
 import { ArrowLeft, Circle, Plus } from "lucide-react";
-import AddProjectCard from "./AddProjectCard";
 import TaskCard from "./TaskCard";
 import AddTaskCard from "./AddTaskCard";
 import Link from "next/link";

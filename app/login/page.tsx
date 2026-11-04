@@ -38,7 +38,7 @@ export default function Login(){
             }
             router.push("/dashboard")
             router.refresh()
-        } catch (err) {
+        } catch  {
             setError("Something went wrong. Please Try Again.")
         }finally{
             setLoading(false)

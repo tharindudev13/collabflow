@@ -6,7 +6,6 @@ import { Input } from './input'
 import { Textarea } from './textarea'
 import { Button } from './button'
 import { useState } from 'react'
-import FeedBack from '../FeedBack'
 import { useRouter } from 'next/navigation'
 import TaskFeedBack from '../TaskFeedBack'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './select'
@@ -78,7 +77,7 @@ const EditTaskCard = ({ onClose,task}: { onClose: () => void ,task: Task}) => {
           SetError(result.message)
           setType(4)
         }
-      } catch (error) {
+      } catch {
         setType(3)
       }finally{
         setLoading(false)

@@ -45,7 +45,7 @@ const EditProjectCard = ({ onClose,projectId,pname,description,emoji}: { onClose
           SetError(result.message)
           setType(4)
         }
-      } catch (error) {
+      } catch {
         setType(3)
       }finally{
         setLoading(false)

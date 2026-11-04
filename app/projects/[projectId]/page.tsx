@@ -37,7 +37,6 @@ export default async function ProjectTasks({params}: {params: {projectId: string
         })
 
     const userName = session?.user?.name ?? "Guest"
-    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     
     const cards = tasks.map((task) => ({
         ...task,

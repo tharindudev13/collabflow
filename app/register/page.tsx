@@ -36,7 +36,6 @@ export default function Register(){
                     password:pwd
                 })
             })
-            const result = await response.json()
             
             if(!response.ok){
                 if(response.status === 409){
@@ -49,7 +48,7 @@ export default function Register(){
                 return
             }
             router.push("/login")
-        } catch (err) {
+        } catch  {
             setError("Something went wrong. Please Try Again.")
         }finally{
             setLoading(false)

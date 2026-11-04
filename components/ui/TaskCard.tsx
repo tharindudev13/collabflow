@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from './card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './dropdown-menu'
 import { ArrowUpRight, Ellipsis, Pencil, Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import DeleteTaskCard from './DeleteTaskCard'
 import EditTaskCard from './EditTaskCard'
 
@@ -29,7 +28,6 @@ const TaskCard = ({ task }: { task: Task }) => {
     }else {
         color = "#1FA673"
     }
-    const router = useRouter()
   return (
     <div>
     <Card>

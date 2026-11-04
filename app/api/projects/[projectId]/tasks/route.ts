@@ -42,7 +42,7 @@ export async function GET(request: Request ,{params}: {params: Promise<{projectI
             {tasks: tasks},
             {status: 200}
         )
-    }catch(err){
+    }catch{
         return NextResponse.json(
             {message: "Internal server error"},
             {status: 500}
